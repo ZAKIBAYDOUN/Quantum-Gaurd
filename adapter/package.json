@@ -1,0 +1,19 @@
+{
+  "name": "dex-adapter-5470",
+  "version": "1.0.0",
+  "description": "DEX Adapter for 5470 Core - Compatible with 1inch, OpenOcean, DefiLlama",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["dex", "adapter", "5470", "defi", "amm"],
+  "author": "5470 Core Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1"
+  }
+}

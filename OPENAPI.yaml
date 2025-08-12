@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  title: 5470 Core DEX Adapter API
+  description: |
+    RESTful API adapter for 5470 Core DEX integration with aggregators like 1inch, OpenOcean, and DefiLlama.
+    
+    ## Features
+    - 0x/1inch compatible endpoints
+    - AMM with 0.3% trading fee
+    - Supports 5470/BTC, 5470/ETH, 5470/USDT, 5470/USDC pairs
+    - Real-time pricing and quotes
+    - ZK-SNARKs privacy features
+    - AI-powered transaction validation
+    
+    ## Base URL
+    Production: `https://dex-adapter-5470.<username>.replit.app`
+    
+  version: 1.0.0
+  contact:
+    name: 5470 Core Team
+    url: https://github.com/5470core
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://dex-adapter-5470.example.replit.app
+    description: Production server
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Returns the health status of the adapter service
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    example: true
+                  timestamp:
+                    type: number
+                    example: 1698765432000
+                  service:
+                    type: string
+                    example: "5470-dex-adapter"
+                  version:
+                    type: string
+                    example: "1.0.0"
+                  native_api:
+                    type: string
+                    example: "http://localhost:5000/api"
+
+  /swap/v1/pairs:
+    get:
+      summary: Get trading pairs
+      description: Returns all available trading pairs in 1inch/0x format
+      responses:
+        '200':
+          description: List of trading pairs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pairs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                          example: "5470/BTC"
+                        base:
+                          type: string
+                          example: "5470"
+                        quote:
+                          type: string
+                          example: "BTC"
+                        active:
+                          type: boolean
+                          example: true
+                        fee:
+                          type: number
+                          example: 0.003
+                        minAmount:
+                          type: string
+                          example: "0.01"
+                        maxAmount:
+                          type: string
+                          example: "1000000"
+                  count:
+                    type: number
+                    example: 4
+                  timestamp:
+                    type: number
+                    example: 1698765432000
+
+  /swap/v1/price:
+    get:
+      summary: Get price quote
+      description: Returns price information for a token swap
+      parameters:
+        - name: sellToken
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "5470"
+          description: Token to sell
+        - name: buyToken
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "BTC"
+          description: Token to buy
+        - name: sellAmount
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "10"
+          description: Amount of sell token
+      responses:
+        '200':
+          description: Price quote
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sellToken:
+                    type: string
+                    example: "5470"
+                  buyToken:
+                    type: string
+                    example: "BTC"
+                  sellAmount:
+                    type: string
+                    example: "10"
+                  buyAmount:
+                    type: string
+                    example: "0.0002"
+                  price:
+                    type: string
+                    example: "0.00002"
+                  guaranteedPrice:
+                    type: string
+                    example: "0.00002"
+                  to:
+                    type: string
+                    example: "0x5470000000000000000000000000000000000000"
+                  data:
+                    type: string
+                    example: "0x"
+                  gas:
+                    type: string
+                    example: "150000"
+                  gasPrice:
+                    type: string
+                    example: "20000000000"
+        '400':
+          description: Bad request - missing parameters
+        '500':
+          description: Internal server error
+
+  /swap/v1/quote:
+    get:
+      summary: Get swap quote with transaction data
+      description: Returns a swap quote including transaction data for execution
+      parameters:
+        - name: sellToken
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "5470"
+        - name: buyToken
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "BTC"
+        - name: sellAmount
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "10"
+        - name: slippagePercentage
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "1"
+          description: Slippage tolerance percentage (default 1%)
+      responses:
+        '200':
+          description: Swap quote with transaction data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sellToken:
+                    type: string
+                  buyToken:
+                    type: string
+                  sellAmount:
+                    type: string
+                  buyAmount:
+                    type: string
+                  minBuyAmount:
+                    type: string
+                  price:
+                    type: string
+                  guaranteedPrice:
+                    type: string
+                  to:
+                    type: string
+                  data:
+                    type: string
+                  value:
+                    type: string
+                  gas:
+                    type: string
+                  gasPrice:
+                    type: string
+
+  /dex/pools:
+    get:
+      summary: Get liquidity pools
+      description: Returns information about all liquidity pools (DefiLlama format)
+      responses:
+        '200':
+          description: List of liquidity pools
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pools:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "5470_BTC"
+                        name:
+                          type: string
+                          example: "5470/BTC"
+                        symbol:
+                          type: string
+                          example: "5470-BTC"
+                        token0:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                            symbol:
+                              type: string
+                            decimals:
+                              type: number
+                        token1:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                            symbol:
+                              type: string
+                            decimals:
+                              type: number
+                        reserves:
+                          type: array
+                          items:
+                            type: string
+                        fee:
+                          type: number
+                          example: 0.003
+                        volumeUSD:
+                          type: string
+                        liquidityUSD:
+                          type: string
+
+  /tokens:
+    get:
+      summary: Get supported tokens
+      description: Returns list of all supported tokens
+      responses:
+        '200':
+          description: List of supported tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        symbol:
+                          type: string
+                        name:
+                          type: string
+                        decimals:
+                          type: number
+                        logoURI:
+                          type: string
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+tags:
+  - name: Health
+    description: Service health endpoints
+  - name: 1inch Compatible
+    description: 1inch/0x compatible swap endpoints
+  - name: DEX
+    description: DEX specific endpoints

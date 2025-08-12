@@ -1,0 +1,21 @@
+[project]
+name = "repl-nix-workspace"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "bech32>=1.2.0",
+    "crypto>=1.4.1",
+    "ecdsa>=0.19.1",
+    "eth-keys>=0.7.0",
+    "eth-utils>=5.3.0",
+    "fastapi>=0.116.1",
+    "numpy==1.24.3",
+    "pycryptodome>=3.23.0",
+    "pydantic>=2.11.7",
+    "requests>=2.32.4",
+    "scikit-learn>=1.7.1",
+    "tensorflow>=2.14.0",
+    "uvicorn>=0.35.0",
+    "websockets>=15.0.1",
+]

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5470 Core Wallet - Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            text-align: center;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        p {
+            color: #a1a1aa;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .features {
+            list-style: none;
+            text-align: left;
+            margin: 24px 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            color: #d4d4d8;
+        }
+        
+        .features li:before {
+            content: "✓ ";
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        
+        .retry-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .retry-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="icon">💎</div>
+        <h1>5470 Core Wallet</h1>
+        <p>Tu wallet blockchain está temporalmente offline. Los datos están protegidos y se sincronizarán cuando vuelvas a conectarte.</p>
+        
+        <ul class="features">
+            <li>Direcciones permanentes seguras</li>
+            <li>Balances protegidos en PostgreSQL</li>
+            <li>Historial de minería preservado</li>
+            <li>Red P2P se reconectará automáticamente</li>
+        </ul>
+        
+        <button class="retry-btn" onclick="location.reload()">
+            Reintentar Conexión
+        </button>
+        
+        <div class="status">
+            ✅ PWA Instalada - Funciona sin conexión
+        </div>
+    </div>
+
+    <script>
+        // Auto-retry connection every 30 seconds
+        setInterval(() => {
+            if (navigator.onLine) {
+                location.reload();
+            }
+        }, 30000);
+        
+        // Show connection status
+        window.addEventListener('online', () => {
+            location.reload();
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('5470 Wallet: Offline mode activated');
+        });
+    </script>
+</body>
+</html>

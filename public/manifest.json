@@ -1,0 +1,14 @@
+{
+  "name": "5470 Blockchain Wallet",
+  "short_name": "5470Wallet",
+  "start_url": ".",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1221",
+  "theme_color": "#0b1221",
+  "description": "P2P wallet + mining client for 5470 blockchain",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

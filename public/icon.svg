@@ -1,0 +1,51 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#gradient)"/>
+  
+  <!-- Outer ring - quantum field -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+  <circle cx="256" cy="256" r="140" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  
+  <!-- Central diamond - core blockchain -->
+  <path d="M156 256 L256 156 L356 256 L256 356 Z" fill="url(#innerGradient)" opacity="0.9"/>
+  <path d="M176 256 L256 176 L336 256 L256 336 Z" fill="rgba(255,255,255,0.8)"/>
+  <path d="M196 256 L256 196 L316 256 L256 316 Z" fill="rgba(255,255,255,0.9)"/>
+  
+  <!-- Core node -->
+  <circle cx="256" cy="256" r="24" fill="white"/>
+  <circle cx="256" cy="256" r="16" fill="url(#gradient)"/>
+  
+  <!-- Quantum neurons (small circles around) -->
+  <circle cx="256" cy="120" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="320" cy="150" r="6" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="362" cy="200" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="392" cy="256" r="6" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="362" cy="312" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="320" cy="362" r="6" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="256" cy="392" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="192" cy="362" r="6" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="150" cy="312" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="120" cy="256" r="6" fill="rgba(255,255,255,0.7)"/>
+  <circle cx="150" cy="200" r="8" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="192" cy="150" r="6" fill="rgba(255,255,255,0.7)"/>
+  
+  <!-- Connection lines (neural network) -->
+  <path d="M256 120 L320 150 L362 200 L392 256 L362 312 L320 362 L256 392 L192 362 L150 312 L120 256 L150 200 L192 150 Z" 
+        fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Text label -->
+  <text x="256" y="450" text-anchor="middle" fill="white" font-family="monospace" font-size="42" font-weight="bold" opacity="0.9">5470</text>
+  <text x="256" y="480" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="sans-serif" font-size="18" font-weight="normal">QUANTUM CORE</text>
+</svg>

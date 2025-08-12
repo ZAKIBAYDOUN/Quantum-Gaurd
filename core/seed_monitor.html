@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>5470 Seed Node Monitor</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; }
+        .node { margin: 10px; padding: 10px; border: 1px solid #0f0; }
+        .online { background: #001100; }
+        .offline { background: #110000; color: #f00; }
+    </style>
+</head>
+<body>
+    <h1>🌐 5470 Seed Node Network</h1>
+    <div class="stats">
+        <p>Public IP: 35.237.216.148</p>
+        <p>Node Port: 5470</p>
+        <p>P2P Port: 8333</p>
+        <p>Status: <span id="status">Checking...</span></p>
+    </div>
+    
+    <h2>Connected Peers</h2>
+    <div id="peers"></div>
+    
+    <script>
+        function updateStatus() {
+            fetch('/api/network/stats')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('status').textContent = 
+                        `${data.connectedPeers} peers connected`;
+                    
+                    const peersDiv = document.getElementById('peers');
+                    peersDiv.innerHTML = '';
+                    
+                    // Display connected peers (mock for now)
+                    for(let i = 0; i < data.connectedPeers && i < 10; i++) {
+                        const peerDiv = document.createElement('div');
+                        peerDiv.className = 'node online';
+                        peerDiv.innerHTML = `
+                            <strong>Peer ${i+1}</strong><br>
+                            IP: 192.168.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}<br>
+                            Last Seen: ${new Date().toLocaleString()}
+                        `;
+                        peersDiv.appendChild(peerDiv);
+                    }
+                })
+                .catch(e => {
+                    document.getElementById('status').textContent = 'Offline';
+                });
+        }
+        
+        updateStatus();
+        setInterval(updateStatus, 5000);
+    </script>
+</body>
+</html>

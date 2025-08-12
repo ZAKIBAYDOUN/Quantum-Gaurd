@@ -1,0 +1,42 @@
+[
+  {
+    "ip": "35.237.216.148",
+    "port": 5470,
+    "type": "seed",
+    "location": "local",
+    "last_seen": 1754759717,
+    "version": "5470.1"
+  },
+  {
+    "ip": "45.76.123.45",
+    "port": 5470,
+    "type": "seed",
+    "location": "US-East",
+    "last_seen": 1754759717,
+    "version": "5470.1"
+  },
+  {
+    "ip": "139.180.191.67",
+    "port": 5470,
+    "type": "seed",
+    "location": "US-West",
+    "last_seen": 1754759717,
+    "version": "5470.1"
+  },
+  {
+    "ip": "207.148.78.123",
+    "port": 5470,
+    "type": "seed",
+    "location": "EU-London",
+    "last_seen": 1754759717,
+    "version": "5470.1"
+  },
+  {
+    "ip": "95.179.147.89",
+    "port": 5470,
+    "type": "seed",
+    "location": "Asia-Tokyo",
+    "last_seen": 1754759717,
+    "version": "5470.1"
+  }
+]

@@ -1,0 +1,76 @@
+# Datos sensibles y privados
+wallet_data/
+private_notes.json
+peer_store.json
+balance_snapshots.json
+balances.json
+chain_data.json
+config.json
+cookies.txt
+
+# Datos de desarrollo y testing
+node_data_*/
+blockchain_data/
+test_zk_data/
+test_ai_models/
+zk_data/
+decentralized_data/
+data/
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs y archivos temporales
+*.log
+logs/
+.cache/
+.temp/
+.tmp/
+
+# Dependencias
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Archivos específicos del proyecto que contienen datos
+peer_balances.json
+network_state.json
+mining_cache.json
+transaction_pool.json
+
+# Archivos de replit específicos que pueden tener datos sensibles
+.replit
+.upm
+uv.lock
+
+# Certificados y claves
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Respaldos
+*.backup
+*.bak
+*.old

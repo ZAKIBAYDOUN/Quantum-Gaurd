@@ -26,34 +26,9 @@
     return; // native path ends here
   }
 
-  // Fallback: web banner with direct download link
-  el.innerHTML = '<strong>Actualización disponible</strong> <span id="updVer" class="mono"></span> · <a id="updLink" href="#" style="color:#4da3ff">Descargar</a>';
+    // Fallback (web/PWA): solo invitar a instalar la app de escritorio
+  el.innerHTML = '<strong>Nueva versión</strong> · Instala la app de escritorio para auto-actualizarse <a id="updLink" href="#" style="color:#4da3ff">Descargar QuantumGuard-Setup.exe</a>';
   document.addEventListener('DOMContentLoaded',()=>document.body.appendChild(el));
-
-  async function checkWeb() {
-    try {
-      const v = (window.HOST && window.HOST.version) || '0.0.0';
-      const api = 'https://api.github.com/repos/ZAKIBAYDOUN/Quantum-Gaurd/releases/latest';
-      const r = await fetch(api, { headers: { 'Accept': 'application/vnd.github+json' } });
-      const j = await r.json();
-      const tag = (j && j.tag_name) || '';
-      if (!tag) return;
-      const newer = tag.replace(/^v/, '') !== v;
-      if (!newer) return;
-      const isWin = navigator.userAgent.includes('Windows');
-      const isLinux = navigator.userAgent.includes('Linux');
-      let asset = null;
-      for (const a of (j.assets||[])) {
-        if (isWin && a.name.endsWith('.exe')) { asset = a; break; }
-        if (isLinux && (a.name.endsWith('.AppImage') || a.name.endsWith('.deb'))) { asset = a; }
-      }
-      if (asset) {
-        document.getElementById('updVer').textContent = 'v'+tag.replace(/^v/,'');
-        const link = document.getElementById('updLink');
-        link.href = asset.browser_download_url;
-        el.style.display = 'block';
-      }
-    } catch {}
-  }
-  setTimeout(checkWeb, 3000);
+  const link = () => 'https://github.com/ZAKIBAYDOUN/Quantum-Gaurd/releases/latest/download/QuantumGuard-Setup.exe';
+  document.addEventListener('DOMContentLoaded',()=>{ const a = document.getElementById('updLink'); if(a) a.href = link(); el.style.display = 'block'; });
 })();

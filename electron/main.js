@@ -44,7 +44,27 @@ app.whenReady().then(() => {
   autoUpdater.on('download-progress', (p) => send({ status: 'downloading',
     percent: p.percent, transferred: p.transferred, total: p.total, bytesPerSecond: p.bytesPerSecond }));
   autoUpdater.on('update-downloaded', (info) => {
-    send({ status: 'downloaded', info });
+  send({ status: 'downloaded', info });
+  try {
+    autoUpdater.quitAndInstall(false, true);
+  } catch (e) {
+    log?.error && log.error('quitAndInstall failed', e);
+    try {
+      const exe = (info && (info.downloadedFile || info.file)) || null;
+      if (exe) {
+        const { spawn } = require('child_process');
+        const child = spawn(exe, ['/S'], { detached: true, stdio: 'ignore' });
+        child.unref();
+        app.exit(0);
+      } else {
+        send({ status: 'error', message: 'No se encontró el instalador descargado.' });
+      }
+    } catch (er) {
+      log?.error && log.error('fallback spawn failed', er);
+      send({ status: 'error', message: 'Windows bloqueó la instalación automática.' });
+    }
+  }
+});
     try {
       autoUpdater.quitAndInstall(false, true);
     } catch (e) {

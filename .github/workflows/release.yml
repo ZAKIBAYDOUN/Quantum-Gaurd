@@ -5,71 +5,67 @@ on:
 permissions:
   contents: write
 jobs:
-  build-desktop:
-    name: Build desktop (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+  build-windows:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm install --no-audit --no-fund
+      - run: npx electron-builder --version
+      - run: npm run dist -- --publish never
+      - uses: actions/upload-artifact@v4
         with:
-          node-version: "20"
+          name: desktop-windows
+          path: dist/*.exe
+          if-no-files-found: warn
 
-      - name: Linux deps (rpm/fakeroot)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rpm fakeroot
-
-      - name: macOS env (disable signing)
-        if: matrix.os == 'macos-latest'
-        run: echo "CSC_IDENTITY_AUTO_DISCOVERY=false" >> $GITHUB_ENV
-
-      - name: Common env
-        run: |
-          echo "USE_HARD_LINKS=false" >> $GITHUB_ENV
-          echo "ELECTRON_BUILDER_SKIP_SNAP=true" >> $GITHUB_ENV
-
-      - name: Install deps
-        run: npm install --no-audit --no-fund
-
-      - name: Electron Builder version
-        run: npx electron-builder --version
-
-      - name: Build installers
-        run: npm run dist
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: sudo apt-get update && sudo apt-get install -y rpm fakeroot
+      - run: npm install --no-audit --no-fund
+      - run: npx electron-builder --version
+      - run: npm run dist -- --publish never
+      - uses: actions/upload-artifact@v4
         with:
-          name: desktop-${{ matrix.os }}
+          name: desktop-linux
           path: |
-            dist/*.exe
-            dist/*.msi
-            dist/*.dmg
             dist/*.AppImage
             dist/*.deb
             dist/*.rpm
-            dist/*.zip
+          if-no-files-found: warn
+
+  build-macos:
+    runs-on: macos-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: echo "CSC_IDENTITY_AUTO_DISCOVERY=false" >> $GITHUB_ENV
+      - run: npm install --no-audit --no-fund
+      - run: npx electron-builder --version
+      - run: npm run dist -- --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-macos
+          path: dist/*.dmg
           if-no-files-found: warn
 
   checksums-and-release:
-    needs: build-desktop
+    needs: [build-windows, build-linux, build-macos]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-      - name: Generate SHA256SUMS
-        run: |
+        with: { path: artifacts }
+      - run: |
           cd artifacts
           find . -type f -maxdepth 2 -print0 | xargs -0 sha256sum > SHA256SUMS
-      - name: Create GitHub Release and upload assets
-        uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v2
         with:
           files: artifacts/**/*
           generate_release_notes: true

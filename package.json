@@ -4,7 +4,6 @@
   "description": "Quantum Guard DApp (offline bundle)",
   "main": "electron/main.js",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "dist": "electron-builder -c electron-builder.yml"
   },

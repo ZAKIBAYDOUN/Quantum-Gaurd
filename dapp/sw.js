@@ -1,4 +1,4 @@
-﻿const CACHE = "supercore-cache-v3";
+﻿const CACHE = "supercore-cache-v4";
 const ASSETS = [\n  "./",\n  "./index.html",\n  "./ui.css",\n  "./app.js",\n  "./wallets.js",\n  "./multicall.js",\n  "./eip712.js",\n  "./aa4337.js",\n  "./dex.js",\n  "./zk.js",\n  "./mpc.js",\n  "./qnn.js",\n  "./utils.js",\n  "./contracts.json",\n  "./networks.json",\n  "./manifest.webmanifest",\n  "./icon.svg"\n];
 
 // Precache
@@ -30,5 +30,6 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+
 
 

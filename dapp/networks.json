@@ -1,58 +1,152 @@
 ﻿[
-  {
-    "name": "Base",
-    "chainId": "0x2105",
-    "rpc": ["https://mainnet.base.org", "https://base.drpc.org"],
-    "nativeCurrency": { "name": "Ether", "symbol": "ETH", "decimals": 18 },
-    "blockExplorerUrls": ["https://basescan.org"],
-    "mevProtected": []
-  },
-  {
-    "name": "Arbitrum One",
-    "chainId": "0xa4b1",
-    "rpc": ["https://arb1.arbitrum.io/rpc", "https://arbitrum.drpc.org"],
-    "nativeCurrency": { "name": "Ether", "symbol": "ETH", "decimals": 18 },
-    "blockExplorerUrls": ["https://arbiscan.io"],
-    "mevProtected": []
-  },
-  {
-    "name": "Optimism",
-    "chainId": "0xa",
-    "rpc": ["https://mainnet.optimism.io", "https://optimism.drpc.org"],
-    "nativeCurrency": { "name": "Ether", "symbol": "ETH", "decimals": 18 },
-    "blockExplorerUrls": ["https://optimistic.etherscan.io"],
-    "mevProtected": []
-  },
-  {
-    "name": "Polygon PoS",
-    "chainId": "0x89",
-    "rpc": ["https://polygon-rpc.com", "https://polygon.drpc.org"],
-    "nativeCurrency": { "name": "MATIC", "symbol": "MATIC", "decimals": 18 },
-    "blockExplorerUrls": ["https://polygonscan.com"],
-    "mevProtected": []
-  },
-  {
-    "name": "BSC",
-    "chainId": "0x38",
-    "rpc": ["https://bsc-dataseed1.bnbchain.org", "https://bsc.drpc.org"],
-    "nativeCurrency": { "name": "BNB", "symbol": "BNB", "decimals": 18 },
-    "blockExplorerUrls": ["https://bscscan.com"],
-    "mevProtected": []
-  },
-  {
-    "name": "Avalanche C-Chain",
-    "chainId": "0xa86a",
-    "rpc": ["https://api.avax.network/ext/bc/C/rpc"],
-    "nativeCurrency": { "name": "AVAX", "symbol": "AVAX", "decimals": 18 },
-    "blockExplorerUrls": ["https://snowtrace.io"],
-    "mevProtected": []
-  },
-  {
-    "name": "Gnosis",
-    "chainId": "0x64",
-    "rpc": ["https://rpc.gnosis.gateway.fm", "https://gnosis.drpc.org"],
-    "nativeCurrency": { "name": "xDAI", "symbol": "xDAI", "decimals": 18 },
-    "blockExplorerUrls": ["https://gnosisscan.io"],
-    "mevProtected": []
-  }
+    {
+        "name":  "Base",
+        "chainId":  "0x2105",
+        "rpc":  [
+                    "https://mainnet.base.org",
+                    "https://base.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "Ether",
+                               "symbol":  "ETH",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://basescan.org"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Arbitrum One",
+        "chainId":  "0xa4b1",
+        "rpc":  [
+                    "https://arb1.arbitrum.io/rpc",
+                    "https://arbitrum.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "Ether",
+                               "symbol":  "ETH",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://arbiscan.io"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Optimism",
+        "chainId":  "0xa",
+        "rpc":  [
+                    "https://mainnet.optimism.io",
+                    "https://optimism.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "Ether",
+                               "symbol":  "ETH",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://optimistic.etherscan.io"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Polygon PoS",
+        "chainId":  "0x89",
+        "rpc":  [
+                    "https://polygon-rpc.com",
+                    "https://polygon.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "MATIC",
+                               "symbol":  "MATIC",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://polygonscan.com"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "BSC",
+        "chainId":  "0x38",
+        "rpc":  [
+                    "https://bsc-dataseed1.bnbchain.org",
+                    "https://bsc.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "BNB",
+                               "symbol":  "BNB",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://bscscan.com"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Avalanche C-Chain",
+        "chainId":  "0xa86a",
+        "rpc":  [
+                    "https://api.avax.network/ext/bc/C/rpc"
+                ],
+        "nativeCurrency":  {
+                               "name":  "AVAX",
+                               "symbol":  "AVAX",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://snowtrace.io"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Gnosis",
+        "chainId":  "0x64",
+        "rpc":  [
+                    "https://rpc.gnosis.gateway.fm",
+                    "https://gnosis.drpc.org"
+                ],
+        "nativeCurrency":  {
+                               "name":  "xDAI",
+                               "symbol":  "xDAI",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://gnosisscan.io"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    },
+    {
+        "name":  "Evmos (Cosmos EVM)",
+        "chainId":  "0x2329",
+        "rpc":  [
+                    "https://evmos-evm.publicnode.com"
+                ],
+        "nativeCurrency":  {
+                               "name":  "Evmos",
+                               "symbol":  "EVMOS",
+                               "decimals":  18
+                           },
+        "blockExplorerUrls":  [
+                                  "https://evm.evmos.org"
+                              ],
+        "mevProtected":  [
+
+                         ]
+    }
 ]

@@ -68,7 +68,7 @@
     </div>
 
     <div class="muted">Consejo: instala MetaMask si no tienes proveedor EIP‑1193 disponible en el navegador.</div>
-    <div class="card">\n    <div class="row" style="justify-content:space-between;">\n      <div>\n        <div class="muted">Neurons</div>\n        <div class="muted">Lectura on-chain (placeholder)</div>\n      </div>\n      <div class="row">\n        <div id="neurons" class="mono">-</div>\n      <button id="btnBatchNeurons" class="secondary">Batch refresh</button>\n      </div>\n    </div>\n  </div>\n</main>
+    <div class="card">\n    <div class="row" style="justify-content:space-between;">\n      <div>\n        <div class="muted">Neurons</div>\n        <div class="muted">Lectura on-chain (placeholder)</div>\n      </div>\n      <div class="row">\n        <div id="neurons" class="mono">-</div>\n      <button id="btnBatchNeurons" class="secondary">Batch refresh</button>\n      </div>\n    </div>\n  </div>\n  <section id="tab-interchain" class="card" hidden>\n    <div class="muted">Interchain (no EVM)</div>\n    <div class="row">\n      <div id="cosmosStatus" class="mono">Cosmos wallet: not detected</div>\n      <div id="dagStatus" class="mono">DAG wallet: not detected</div>\n    </div>\n    <div class="muted">Para Cosmos (ATOM) usa Keplr; para DAG usa Stargazer. Integraremos llamadas con sus SDKs cuando lo indiques.</div>\n  </section>\n</main>
 
   <script type="module" src="./app.js"></script>
   <script>
@@ -78,7 +78,8 @@
       });
     }
   </script>
-  <script type="module" src="./contracts.js"></script>\n</body>
+  <script type="module" src="./contracts.js"></script>\n  <script type="module" src="./interchain.js"></script>\n</body>
 </html>
+
 
 

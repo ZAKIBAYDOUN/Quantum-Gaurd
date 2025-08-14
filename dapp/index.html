@@ -20,7 +20,13 @@
     .muted { color:#9db3d9; }
   </style>
 </head>
-<body>
+
+<!-- TAGLINE START -->
+<section class="card" style="margin-top:16px;">
+  <strong>5470</strong>
+  <div id="tagline" class="muted" style="margin-top:6px;"></div>
+</section>
+<!-- TAGLINE END -->
   <header>
     <div class="row">
       <img src="./icon.svg" alt="logo" width="28" height="28" />
@@ -129,8 +135,14 @@
 <script src="./theme.js"></script>
 <div class="fab-theme"><button id="btn-theme" class="btn btn-secondary">Tema</button></div>
 <!-- /THEME BOOT -->
-</body>
+<!-- LANG BOOT -->
+<script src="./i18n/i18n.js"></script>
+<div style="position: fixed; right: 18px; bottom: 68px; z-index: 50;">
+  <select id="langSelect" class="btn btn-secondary" style="min-width: 220px;"></select>
+</div>
+<!-- /LANG BOOT -->\n</body>
 </html>
+
 
 
 

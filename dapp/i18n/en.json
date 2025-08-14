@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "From the alleys of Gotham to the mempool of the internet, a masked guardian called Satoshi showed that code can be a cape, and consensus the Bat-Signal that summons a better city.",
+  "ui.language": "Language",
+  "ui.theme": "Theme",
+  "panel.pro": "Pro Panel",
+  "panel.mining": "5470 Mining (native)",
+  "panel.taylor": "Taylor Pass (security metric)",
+  "panel.deployer": "Smart Contract Deployer",
+  "btn.start": "Start",
+  "btn.stop": "Stop",
+  "btn.claim": "Claim",
+  "btn.params": "Params",
+  "btn.stats": "Stats",
+  "btn.register": "Register",
+  "btn.submit": "Submit Work",
+  "btn.deploy": "Deploy",
+  "input.nonce": "Nonce",
+  "input.prevhash": "Prev Hash",
+  "input.sigs": "Signatures (hex)",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...bytecode",
+  "deploy.args": "[\"arg1\", 123] (optional JSON)"
+}

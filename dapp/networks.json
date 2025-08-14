@@ -148,5 +148,20 @@
         "mevProtected":  [
 
                          ]
+    },
+    {
+        "chainId":  5470,
+        "name":  "5470 Quantum-Guard Network",
+        "currency":  {
+                         "name":  "5470",
+                         "symbol":  "5470",
+                         "decimals":  18
+                     },
+        "rpcUrls":  [
+
+                    ],
+        "explorers":  [
+
+                      ]
     }
 ]

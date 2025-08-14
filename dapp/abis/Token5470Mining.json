@@ -1,0 +1,25 @@
+﻿[
+  { "type": "function", "name": "registerMiner", "stateMutability": "nonpayable", "inputs": [
+      { "name": "score", "type": "uint256" },
+      { "name": "signatures", "type": "bytes" }
+    ], "outputs": [] },
+  { "type": "function", "name": "submitWork", "stateMutability": "nonpayable", "inputs": [
+      { "name": "nonce", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "previousHash", "type": "bytes32" },
+      { "name": "score", "type": "uint256" },
+      { "name": "signatures", "type": "bytes" }
+    ], "outputs": [ { "name": "ok", "type": "bool" } ] },
+  { "type": "function", "name": "getMiningParams", "stateMutability": "view", "inputs": [], "outputs": [
+      { "name": "difficulty", "type": "uint256" },
+      { "name": "height", "type": "uint256" },
+      { "name": "reward", "type": "uint256" },
+      { "name": "targetTime", "type": "uint256" }
+    ] },
+  { "type": "function", "name": "getMinerStats", "stateMutability": "view", "inputs": [ { "name": "miner", "type": "address" } ], "outputs": [
+      { "name": "blocksFound", "type": "uint256" },
+      { "name": "totalRewards", "type": "uint256" },
+      { "name": "lastBlock", "type": "uint256" },
+      { "name": "active", "type": "bool" }
+    ] }
+]

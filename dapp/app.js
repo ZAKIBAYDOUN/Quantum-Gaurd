@@ -1,5 +1,9 @@
 ﻿import { toHex, formatEth } from "./utils.js";
 import { getProvider, initTabs, loadNetworks, populateNetworkSelect, ensureChain } from "./wallets.js";
+import { batchNeuronCounts } from "./multicall.js";
+import { verifyProofPlaceholder } from "./zk.js";
+import { startMpcFlow } from "./mpc.js";
+import { minOut } from "./dex.js";
 
 const $ = (id) => document.getElementById(id);
 const connectBtn = $("connectBtn");
@@ -14,7 +18,6 @@ let currentAccount = null;
 let networks = [];
 
 function provider() { return getProvider(); }
-function short(addr) { return addr ? addr.slice(0,6) + "…" + addr.slice(-4) : "-"; }
 
 async function connect() {
   const eth = provider();
@@ -47,6 +50,38 @@ async function init() {
   networks = await loadNetworks();
   populateNetworkSelect(networks);
   networkSelect.addEventListener('change', async ()=> { await ensureChain(networkSelect.value); await refresh(); });
+
+  // Buttons wiring
+  const btnBatch = document.getElementById('btnBatchNeurons');
+  if (btnBatch) btnBatch.addEventListener('click', async ()=>{
+    try {
+      const cfg = await (await fetch('./contracts.json', { cache:'no-store' })).json();
+      const chainIdHex = await getChainId();
+      const res = await batchNeuronCounts(provider(), chainIdHex, cfg);
+      document.getElementById('neurons').textContent = res.join(',');
+    } catch (e) { console.warn(e); }
+  });
+
+  const btnZk = document.getElementById('btnZkVerify');
+  if (btnZk) btnZk.addEventListener('click', async ()=>{
+    const out = await verifyProofPlaceholder();
+    const el = document.getElementById('zkResult');
+    el.textContent = out.ok ? 'OK' : out.message;
+  });
+
+  const btnMpc = document.getElementById('btnMpcStart');
+  if (btnMpc) btnMpc.addEventListener('click', ()=>{
+    const { ok, url } = startMpcFlow();
+    const el = document.getElementById('mpcStatus');
+    el.textContent = ok ? `Cosigner URL: ${url}` : 'MPC error';
+  });
+
+  const btnDex = document.getElementById('btnDexQuote');
+  if (btnDex) btnDex.addEventListener('click', ()=>{
+    const amount = document.getElementById('dexAmount').value || '0';
+    const slip = parseInt(document.getElementById('dexSlip').value || '50', 10);
+    try { document.getElementById('dexOut').textContent = minOut(amount, slip).toString(); } catch { document.getElementById('dexOut').textContent = '0'; }
+  });
 }
 
 connectBtn.addEventListener("click", connect);

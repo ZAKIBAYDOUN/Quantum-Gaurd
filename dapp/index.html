@@ -78,8 +78,45 @@
       });
     }
   </script>
-  <script type="module" src="./contracts.js"></script>\n  <script type="module" src="./interchain.js"></script>\n</body>
+  <script type="module" src="./contracts.js"></script>\n  <script type="module" src="./interchain.js"></script>\n<!-- PRO PANEL START -->
+<section id="pro-panel" style="margin:24px 0; border-top:1px solid #eee; padding-top:16px;">
+  <h2>Panel Pro</h2>
+  <details open>
+    <summary><strong>Minería 5470 (nativo)</strong></summary>
+    <div style="margin:8px 0;">
+      <button id="btn-mining-start">Iniciar</button>
+      <button id="btn-mining-stop">Parar</button>
+      <button id="btn-mining-claim">Claim</button>
+      <div id="mining-output" style="margin-top:8px;color:#555;">Listo.</div>
+    </div>
+  </details>
+  <details>
+    <summary><strong>Taylor Pass (métrica de seguridad)</strong></summary>
+    <div style="margin:8px 0;">
+      <button id="btn-taylor-check">Calcular</button>
+      <span>Score:</span> <span id="taylor-score">-</span>
+      <span style="margin-left:12px;">Estado:</span> <span id="taylor-status">-</span>
+      <p style="color:#777;">Acciones sensibles pueden ser protegidas con TaylorPass.gate(...)</p>
+    </div>
+  </details>
+  <details>
+    <summary><strong>Smart Contract Deployer</strong></summary>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <textarea id="deploy-abi" rows="6" placeholder='[ ... ABI ... ]'></textarea>
+      <textarea id="deploy-bytecode" rows="4" placeholder='0x...bytecode'></textarea>
+      <input id="deploy-args" placeholder='["arg1", 123, ...] (opcional JSON)'>
+      <button id="btn-deploy">Deploy</button>
+      <pre id="deploy-output" style="white-space:pre-wrap;"></pre>
+    </div>
+  </details>
+</section>
+<script src="./mining.js"></script>
+<script src="./taylor.js"></script>
+<script src="./deployer.js"></script>
+<!-- PRO PANEL END -->
+</body>
 </html>
+
 
 
 

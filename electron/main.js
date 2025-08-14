@@ -1,6 +1,21 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { autoUpdater } = require('electron-updater');
+const log = require('electron-log').default;
+
+app.setAppUserModelId('com.quantum.guard');
+log.transports.file.level = 'info';
+autoUpdater.logger = log;
+
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    const [win] = BrowserWindow.getAllWindows();
+    if (win) { if (win.isMinimized()) win.restore(); win.focus(); }
+  });
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -20,7 +35,6 @@ app.whenReady().then(() => {
   const win = createWindow();
   const send = (payload) => { try { win.webContents.send('updater', payload); } catch {} };
 
-  // Auto-update wiring
   autoUpdater.autoDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
 
@@ -31,8 +45,14 @@ app.whenReady().then(() => {
     percent: p.percent, transferred: p.transferred, total: p.total, bytesPerSecond: p.bytesPerSecond }));
   autoUpdater.on('update-downloaded', (info) => {
     send({ status: 'downloaded', info });
-    setTimeout(() => { try { autoUpdater.quitAndInstall(); } catch {} }, 1200);
+    try {
+      autoUpdater.quitAndInstall(false, true);
+    } catch (e) {
+      log.error('quitAndInstall failed', e);
+      send({ status: 'error', message: 'Windows bloqueó la instalación automática. Ejecuta el instalador desde el banner o reinicia la app.' });
+    }
   });
+  autoUpdater.on('before-quit-for-update', () => send({ status: 'installing' }));
   autoUpdater.on('error', (e) => send({ status: 'error', message: String(e && e.message || e) }));
 
   ipcMain.handle('update-check', async () => {
@@ -41,11 +61,10 @@ app.whenReady().then(() => {
       return { ok: true, result: r && r.updateInfo };
     } catch (e) { return { ok: false, error: String(e && e.message || e) }; }
   });
-  ipcMain.on('update-install', () => { try { autoUpdater.quitAndInstall(); } catch {} });
+  ipcMain.on('update-install', () => { try { autoUpdater.quitAndInstall(false, true); } catch (e) { log.error('manual install error', e); } });
 
-  // initial check and periodic
-  autoUpdater.checkForUpdatesAndNotify().catch(() => {});
-  setInterval(() => autoUpdater.checkForUpdates().catch(()=>{}), 60*60*1000);
+  autoUpdater.checkForUpdatesAndNotify().catch((e) => log.warn('checkForUpdatesAndNotify', e));
+  setInterval(() => autoUpdater.checkForUpdates().catch((e)=>log.warn('checkForUpdates', e)), 60*60*1000);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

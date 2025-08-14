@@ -17,3 +17,9 @@ GitHub Actions runs lint, tests and build automatically on pushes and PRs. See .
 ## Deployment
 Add provider-specific workflow or platform config (Vercel/Render/Railway/etc.).
 Secrets should be added in GitHub repository Settings > Secrets and variables > Actions.
+---
+## CI
+Se usa GitHub Actions para lint/tests/build. Ver `.github/workflows/ci.yml`.
+
+## Env
+Copia `.env.example` a `.env` y completa valores. No subas `.env`.

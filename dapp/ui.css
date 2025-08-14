@@ -1,17 +1,75 @@
-﻿:root { --bg:#0b0f19; --card:#10182a; --line:#172036; --text:#e6f0ff; --muted:#9db3d9; --brand:#2b5cff; }
-* { box-sizing:border-box }
-html, body { height:100% }
-body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--text) }
-header { padding:14px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px; justify-content:space-between }
-main { max-width:980px; margin:0 auto; padding:20px }
-.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin:12px 0 }
-button { background:var(--brand); color:white; border:none; border-radius:10px; padding:10px 14px; cursor:pointer; font-weight:600 }
-button.secondary { background:var(--line); color:#cfe0ff }
-.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace }
-.row { display:flex; gap:10px; flex-wrap:wrap; align-items:center }
-.muted { color:var(--muted) }
-nav.tabs { display:flex; gap:8px; flex-wrap:wrap }
-nav.tabs button { background:transparent; border:1px solid var(--line); color:var(--text) }
-nav.tabs button.active { background:var(--brand); border-color:var(--brand) }
-section[hidden] { display:none }
-select, input[type="checkbox"] { background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px }
+﻿:root {
+  --bg: #0b0f14;
+  --panel: #111826;
+  --fg: #e6eaf2;
+  --muted: #9aa4b2;
+  --border: #1f2937;
+  --primary: #00e0ff;
+  --primary-600: #00c4e0;
+  --accent: #7c3aed;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --radius: 12px;
+  --shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+.theme-light {
+  --bg: #f7f9fc;
+  --panel: #ffffff;
+  --fg: #0f172a;
+  --muted: #5b677a;
+  --border: #e5e7eb;
+  --primary: #0ea5e9;
+  --primary-600: #0284c7;
+  --accent: #7c3aed;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+}
+* { box-sizing: border-box }
+html, body { height: 100% }
+body {
+  margin: 0; font: 15px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+.container { max-width: 1120px; margin: 0 auto; padding: 20px }
+.app-header { position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(1.2) blur(6px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border) }
+.app-header .inner { display:flex; align-items:center; gap:12px; padding: 12px 20px; max-width: 1120px; margin: 0 auto }
+.brand { display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing:.2px }
+.brand img { width: 28px; height: 28px }
+.badge { display:inline-flex; align-items:center; gap:8px; padding: 6px 10px; border:1px solid var(--border); border-radius: 999px; color: var(--muted); background: color-mix(in srgb, var(--panel) 70%, transparent) }
+.spacer { flex: 1 }
+
+section { background: var(--panel); border:1px solid var(--border); border-radius: var(--radius); padding:16px; margin:16px 0; box-shadow: var(--shadow) }
+.card { background: var(--panel); border:1px solid var(--border); border-radius: var(--radius); padding:16px; box-shadow: var(--shadow) }
+
+h1,h2,h3 { margin: 0 0 8px }
+small, .muted { color: var(--muted) }
+
+.btn { appearance:none; border:1px solid var(--border); background: #0f172a; color: var(--fg); padding:10px 14px; border-radius:10px; cursor:pointer; transition: .15s ease; box-shadow: 0 2px 0 rgba(0,0,0,.15) inset }
+.btn:hover { transform: translateY(-1px) }
+.btn:active { transform: translateY(0); box-shadow:none }
+.btn-primary { background: linear-gradient(180deg, var(--primary), var(--primary-600)); border-color: transparent; color: #00222a }
+.btn-secondary { background: color-mix(in srgb, var(--panel) 80%, transparent) }
+.btn-ghost { background: transparent }
+
+select, input, textarea { width: 100%; max-width: 100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border); background: color-mix(in srgb, var(--panel) 85%, transparent); color: var(--fg); outline: none; transition: .15s border-color }
+input::placeholder, textarea::placeholder { color: var(--muted) }
+
+.grid { display:grid; gap:16px }
+@media(min-width: 900px){ .grid.cols-2 { grid-template-columns: 1fr 1fr } }
+
+summary { cursor: pointer; list-style: none }
+summary::-webkit-details-marker { display:none }
+summary { padding:8px 0; color: var(--muted) }
+details[open] summary { color: var(--fg) }
+
+pre { background: #0b1220; color: #e2e8f0; padding:12px; border-radius:10px; border:1px solid var(--border); overflow:auto }
+
+.badge-dot { width:8px; height:8px; border-radius:50%; background: var(--success); display:inline-block }
+.badge-warn { background: var(--warning) }
+.badge-err { background: var(--danger) }
+
+.fab-theme { position: fixed; right: 18px; bottom: 18px; z-index: 50 }
+.fab-theme button { border-radius: 999px; padding: 10px 12px; border:1px solid var(--border); background: var(--panel); color: var(--fg); box-shadow: var(--shadow) }

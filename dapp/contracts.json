@@ -1,0 +1,6 @@
+﻿{
+  "chainId": "0x1", // mainnet; use 0x5 goerli, 0xaa36a7 sepolia, etc.
+  "contracts": [
+    { "name": "Neurons", "address": "0xYourContractAddress", "abi": "./abis/Neurons.json" }
+  ]
+}

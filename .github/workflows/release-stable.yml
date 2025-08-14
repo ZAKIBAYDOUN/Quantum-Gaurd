@@ -1,0 +1,75 @@
+﻿name: release-stable
+on:
+  push:
+    branches: [ import/supercore, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix package.json (BOM + author)
+        shell: pwsh
+        run: |
+          $p = "package.json"
+          [byte[]]$b = [System.IO.File]::ReadAllBytes($p)
+          if ($b.Length -ge 3 -and $b[0] -eq 0xEF -and $b[1] -eq 0xBB -and $b[2] -eq 0xBF) { $b = $b[3..($b.Length-1)] }
+          $s = [System.Text.Encoding]::UTF8.GetString($b)
+          $o = $s | ConvertFrom-Json
+          if (-not $o.author) { $o | Add-Member -NotePropertyName author -NotePropertyValue "Quantum Guard Team <support@quantumguard.app>" }
+          $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+          [System.IO.File]::WriteAllText($p, ($o | ConvertTo-Json -Depth 100), $utf8NoBom)
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm ci || npm install --no-audit --no-fund
+      - run: npx electron-builder --version
+      - run: npm run dist -- --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-windows
+          path: dist/*.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    container: electronuserland/builder:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix package.json (BOM + author)
+        shell: bash
+        run: |
+          node -e "const fs=require('fs'),p='package.json';let b=fs.readFileSync(p);if(b[0]===0xEF&&b[1]===0xBB&&b[2]===0xBF)b=b.slice(3);let o=JSON.parse(b.toString('utf8'));if(!o.author)o.author='Quantum Guard Team <support@quantumguard.app>';fs.writeFileSync(p,JSON.stringify(o,null,2))"
+      - run: npm ci || npm install --no-audit --no-fund
+      - run: npx electron-builder --version
+      - run: npx electron-builder -l AppImage deb --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-linux
+          path: |
+            dist/*.AppImage
+            dist/*.deb
+
+  publish-stable:
+    needs: [build-windows, build-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: artifacts }
+      - name: SHA256SUMS
+        run: |
+          cd artifacts
+          find . -type f -maxdepth 2 -print0 | xargs -0 sha256sum > SHA256SUMS
+      - name: Upload to stable release (overwrite)
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: stable
+          release_name: Stable
+          file: artifacts/**/*
+          file_glob: true
+          overwrite: true
+          body: "Latest stable desktop installers (.exe, .AppImage, .deb) + SHA256SUMS"
+          make_latest: true

@@ -7,11 +7,17 @@ files:
   - electron/**
   - package.json
 asar: true
+# Nombres fijos (sin versión) para enlaces estables
+artifactName: QuantumGuard-${os}.${ext}
 win:
   target: nsis
+  # Windows quedará: QuantumGuard-win.exe (puedes usar QuantumGuard-Setup.${ext} si prefieres)
+  artifactName: QuantumGuard-Setup.${ext}
 linux:
   target:
     - AppImage
     - deb
   category: Utility
   maintainer: Quantum Guard Team <support@quantumguard.app>
+  # Linux quedará: QuantumGuard.AppImage y QuantumGuard.deb
+  artifactName: QuantumGuard.${ext}

@@ -9,16 +9,3 @@ files:
 asar: true
 win:
   target: nsis
-linux:
-  target:
-    - AppImage
-    - deb
-    - rpm
-  category: Utility
-mac:
-  target: dmg
-  hardenedRuntime: false
-  gatekeeperAssess: false
-  entitlements: null
-  entitlementsInherit: null
-  notarize: false

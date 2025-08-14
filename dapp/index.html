@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <title>SuperCore DApp</title>
+  <meta name="description" content="SuperCore DApp PWA - Web3 wallet connect, offline-ready" />
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#0b0f19; color:#e6f0ff; }
+    header { padding:16px 24px; border-bottom:1px solid #172036; display:flex; align-items:center; justify-content:space-between; }
+    main { max-width:920px; margin:0 auto; padding:24px; }
+    .card { background:#10182a; border:1px solid #172036; border-radius:12px; padding:20px; margin-bottom:16px; }
+    button { background:#2b5cff; color:white; border:none; border-radius:10px; padding:12px 16px; cursor:pointer; font-weight:600; }
+    button.secondary { background:#172036; color:#cfe0ff; }
+    code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .muted { color:#9db3d9; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <img src="./icon.svg" alt="logo" width="28" height="28" />
+      <strong>SuperCore DApp</strong>
+    </div>
+    <div class="row">
+      <button id="connectBtn">Conectar Wallet</button>
+      <button id="disconnectBtn" class="secondary" style="display:none;">Desconectar</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div>
+          <div class="muted">Estado</div>
+          <div id="status">No conectado</div>
+        </div>
+        <div>
+          <div class="muted">Red</div>
+          <div id="chain">-</div>
+        </div>
+        <div>
+          <div class="muted">Cuenta</div>
+          <div id="account" class="mono">-</div>
+        </div>
+        <div>
+          <div class="muted">Balance</div>
+          <div id="balance">-</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div>
+          <div class="muted">Firma</div>
+          <div class="muted" style="max-width:560px">Prueba a firmar un mensaje para verificar control de la cuenta (no es una transacción).</div>
+        </div>
+        <div class="row">
+          <button id="signBtn" class="secondary">Firmar mensaje</button>
+        </div>
+      </div>
+      <div id="sig" class="mono" style="margin-top:12px; word-break:break-all;"></div>
+    </div>
+
+    <div class="muted">Consejo: instala MetaMask si no tienes proveedor EIP‑1193 disponible en el navegador.</div>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>

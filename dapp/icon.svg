@@ -1,0 +1,5 @@
+﻿<!-- simple vector icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="20" fill="#2b5cff"/>
+  <path d="M32 64h64M64 32v64" stroke="white" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -18,9 +18,32 @@ function createWindow() {
 
 app.whenReady().then(() => {
   const win = createWindow();
-  // Auto-update (Windows/AppImage)  uses GitHub Releases
+  const send = (payload) => { try { win.webContents.send('updater', payload); } catch {} };
+
+  // Auto-update wiring
   autoUpdater.autoDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on('checking-for-update', () => send({ status: 'checking' }));
+  autoUpdater.on('update-available', (info) => send({ status: 'available', info }));
+  autoUpdater.on('update-not-available', (info) => send({ status: 'none', info }));
+  autoUpdater.on('download-progress', (p) => send({ status: 'downloading',
+    percent: p.percent, transferred: p.transferred, total: p.total, bytesPerSecond: p.bytesPerSecond }));
+  autoUpdater.on('update-downloaded', (info) => {
+    send({ status: 'downloaded', info });
+    setTimeout(() => { try { autoUpdater.quitAndInstall(); } catch {} }, 1200);
+  });
+  autoUpdater.on('error', (e) => send({ status: 'error', message: String(e && e.message || e) }));
+
+  ipcMain.handle('update-check', async () => {
+    try {
+      const r = await autoUpdater.checkForUpdates();
+      return { ok: true, result: r && r.updateInfo };
+    } catch (e) { return { ok: false, error: String(e && e.message || e) }; }
+  });
+  ipcMain.on('update-install', () => { try { autoUpdater.quitAndInstall(); } catch {} });
+
+  // initial check and periodic
   autoUpdater.checkForUpdatesAndNotify().catch(() => {});
   setInterval(() => autoUpdater.checkForUpdates().catch(()=>{}), 60*60*1000);
 

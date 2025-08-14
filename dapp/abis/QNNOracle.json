@@ -1,0 +1,5 @@
+﻿[
+  { "type": "function", "name": "qnnValidate", "stateMutability": "view", "inputs": [
+      { "name": "account", "type": "address" }
+    ], "outputs": [ { "name": "score", "type": "uint256" } ] }
+]

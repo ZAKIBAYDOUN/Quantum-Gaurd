@@ -1,68 +1,24 @@
 ﻿(function(){
-  const state = { mining:false, interval:null };
-  function getSigner() { if (!window.ethers || !window.provider) throw new Error('Wallet no conectada'); return new ethers.BrowserProvider(window.provider).getSigner(); }
-  async function findMiningContract() {
-    // Busca contrato "Token5470" o "Neurons" en mapping dinámico si existe
-    const cid = window.currentChainIdHex || (window.chainId && '0x'+Number(window.chainId).toString(16));
-    if (!cid) return null;
-    const pathA = `dapp/contracts.${parseInt(window.chainId||0) }.json`;
-    try {
-      const contracts = window.currentContracts || window.contracts || {};
-      const candidates = ['Token5470','Neurons','Mining','Miner'];
-      for (const name of candidates) {
-        if (contracts[name]) { return { name, info: contracts[name] }; }
-      }
-    } catch(e) {}
-    return null;
+  function getInputs(){
+    const n = document.getElementById('mining-nonce').value; const nonce = n? BigInt(n): 0n;
+    const prev = document.getElementById('mining-prevhash').value.trim();
+    const sigs = document.getElementById('mining-sigs').value.trim() || '0x';
+    return { nonce, prevHash: prev || '0x' + '00'.repeat(32), signatures: sigs };
   }
-  async function start() {
-    const signer = await getSigner();
-    const c = await findMiningContract();
-    if (!c) throw new Error('Contrato de minería no configurado');
-    const abi = await (await fetch(c.info.abi)).json();
-    const ca = new ethers.Contract(c.info.address, abi, await signer);
-    state.mining = true;
-    const out = document.getElementById('mining-output');
-    out.textContent = 'Minando';
-    // Placeholder: intenta llamar a funciones conocidas si existen
-    const tryTick = async ()=>{
-      if (!state.mining) return;
-      try {
-        if (ca.mine) {
-          const tx = await ca.mine();
-          out.textContent = `mine() enviado: ${tx.hash}`;
-        } else if (ca.submitWork) {
-          const nonce = Math.floor(Math.random()*1e9);
-          const tx = await ca.submitWork(nonce);
-          out.textContent = `submitWork(${nonce}) enviado: ${tx.hash}`;
-        } else if (ca.claim) {
-          const tx = await ca.claim();
-          out.textContent = `claim() enviado: ${tx.hash}`;
-        } else {
-          out.textContent = 'No se reconoce interfaz de minería. Configura ABI/dirección.';
-          stop();
-        }
-      } catch(err){ out.textContent = 'Error: '+(err?.message||err); }
-    };
-    await tryTick();
-  }
-  function stop(){ state.mining=false; if (state.interval){ clearInterval(state.interval); state.interval=null; } document.getElementById('mining-output').textContent = 'Parado.'; }
-  async function claim(){
-    const signer = await getSigner();
-    const c = await findMiningContract();
-    if (!c) throw new Error('Contrato no configurado');
-    const abi = await (await fetch(c.info.abi)).json();
-    const ca = new ethers.Contract(c.info.address, abi, await signer);
-    if (ca.claim) { const tx = await ca.claim(); document.getElementById('mining-output').textContent = `claim() enviado: ${tx.hash}`; }
-    else document.getElementById('mining-output').textContent = 'claim() no disponible en ABI.';
-  }
+  async function getSigner(){ if(!window.ethers||!window.provider) throw new Error('Conecta wallet'); return (await new ethers.BrowserProvider(window.provider).getSigner()); }
+  function getContract(name){ const c = window.currentContracts||window.contracts||{}; return c[name]; }
+  async function getCa(name){ const ci = getContract(name); if (!ci) throw new Error('Contrato no configurado: '+name); const abi = await (await fetch(ci.abi)).json(); const signer = await getSigner(); return new ethers.Contract(ci.address, abi, signer); }
+  async function params(){ try{ const ca = await getCa('Token5470Mining'); const p = await ca.getMiningParams(); document.getElementById('mining-output').textContent = `difficulty=${p[0]} height=${p[1]} reward=${p[2]} target=${p[3]}s`; }catch(e){ alert(e.message||e); } }
+  async function stats(){ try{ const ca = await getCa('Token5470Mining'); const me = window.currentAccount; const s = await ca.getMinerStats(me); document.getElementById('mining-output').textContent = `blocks=${s[0]} rewards=${s[1]} last=${s[2]} active=${s[3]}`; }catch(e){ alert(e.message||e); } }
+  async function register(){ try{ const ca = await getCa('Token5470Mining'); const me = window.currentAccount; const q = await (window.QNN?.qnnValidate?.(me)); const score = q?.score ? BigInt(Math.floor(Number(q.score)*1e6)) : 0n; const { signatures } = getInputs(); const tx = await ca.registerMiner(score, signatures); document.getElementById('mining-output').textContent = `registerMiner tx: ${tx.hash}`; }catch(e){ alert(e.message||e); } }
+  async function submit(){ try{ const ca = await getCa('Token5470Mining'); const { nonce, prevHash, signatures } = getInputs(); const t = BigInt(Math.floor(Date.now()/1000)); const q = await (window.QNN?.qnnValidate?.(window.currentAccount)); const score = q?.score ? BigInt(Math.floor(Number(q.score)*1e6)) : 0n; const tx = await ca.submitWork(nonce, t, prevHash, score, signatures); document.getElementById('mining-output').textContent = `submitWork tx: ${tx.hash}`; }catch(e){ alert(e.message||e); } }
   function init(){
-    const bStart = document.getElementById('btn-mining-start');
-    const bStop = document.getElementById('btn-mining-stop');
-    const bClaim = document.getElementById('btn-mining-claim');
-    if (bStart) bStart.onclick = ()=> start().catch(e=> alert(e.message||e));
-    if (bStop) bStop.onclick = ()=> stop();
-    if (bClaim) bClaim.onclick = ()=> claim().catch(e=> alert(e.message||e));
+    const by = (id)=>document.getElementById(id);
+    by('btn-mining-params')?.addEventListener('click', params);
+    by('btn-mining-stats')?.addEventListener('click', stats);
+    by('btn-mining-register')?.addEventListener('click', register);
+    by('btn-mining-submit')?.addEventListener('click', submit);
+    by('btn-mining-claim')?.addEventListener('click', async()=>{ try{ const ca=await getCa('Token5470Mining'); const tx=await ca.claim(); document.getElementById('mining-output').textContent = `claim tx: ${tx.hash}`; }catch(e){ alert(e.message||e); } });
   }
-  window.Mining5470 = { init, start, stop, claim };
+  window.Mining5470 = { init };
 })();

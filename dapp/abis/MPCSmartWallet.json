@@ -1,0 +1,4 @@
+﻿[
+  { "type": "function", "name": "getThreshold", "stateMutability": "view", "inputs": [], "outputs": [ { "name": "threshold", "type": "uint256" } ] },
+  { "type": "function", "name": "execute", "stateMutability": "nonpayable", "inputs": [ { "name": "data", "type": "bytes" } ], "outputs": [ { "name": "success", "type": "bool" } ] }
+]

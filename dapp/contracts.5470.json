@@ -1,9 +1,9 @@
 ﻿{
-  "chainId": 5470,
-  "contracts": {
-    "Token5470Mining": {
-      "address": "0x5470000000000000000000000000000000000001",
-      "abi": "abis/Token5470Mining.json"
-    }
-  }
+    "chainId":  5470,
+    "contracts":  {
+                      "Token5470Mining":  {
+                                              "abi":  "abis/Token5470Mining.json",
+                                              "address":  "0x5470000000000000000000000000000000000001"
+                                          }
+                  }
 }

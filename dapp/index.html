@@ -83,11 +83,22 @@
   <h2>Panel Pro</h2>
   <details open>
     <summary><strong>Minería 5470 (nativo)</strong></summary>
-    <div style="margin:8px 0;">
-      <button id="btn-mining-start">Iniciar</button>
-      <button id="btn-mining-stop">Parar</button>
-      <button id="btn-mining-claim">Claim</button>
-      <div id="mining-output" style="margin-top:8px;color:#555;">Listo.</div>
+    <div style="margin:8px 0; display:flex; flex-direction:column; gap:6px;">
+      <div>
+        <label>Nonce:</label> <input id="mining-nonce" type="number" style="width:160px;">
+        <label style="margin-left:8px;">Prev Hash:</label> <input id="mining-prevhash" placeholder="0x...32 bytes" style="width:260px;">
+      </div>
+      <div>
+        <label>Firmas (hex):</label> <input id="mining-sigs" placeholder="0x..." style="width:420px;">
+      </div>
+      <div>
+        <button id="btn-mining-params">Params</button>
+        <button id="btn-mining-stats">Stats</button>
+        <button id="btn-mining-register">Registrar</button>
+        <button id="btn-mining-submit">Enviar trabajo</button>
+        <button id="btn-mining-claim">Claim</button>
+      </div>
+      <div id="mining-output" style="margin-top:4px;color:#555;">Listo.</div>
     </div>
   </details>
   <details>
@@ -96,7 +107,6 @@
       <button id="btn-taylor-check">Calcular</button>
       <span>Score:</span> <span id="taylor-score">-</span>
       <span style="margin-left:12px;">Estado:</span> <span id="taylor-status">-</span>
-      <p style="color:#777;">Acciones sensibles pueden ser protegidas con TaylorPass.gate(...)</p>
     </div>
   </details>
   <details>
@@ -113,9 +123,11 @@
 <script src="./mining.js"></script>
 <script src="./taylor.js"></script>
 <script src="./deployer.js"></script>
+<script src="./qnn-onchain.js"></script>
 <!-- PRO PANEL END -->
 </body>
 </html>
+
 
 
 

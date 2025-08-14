@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "من أزقة غوثام إلى ممبول الإنترنت أثبت الحارس المقنع ساتوشي أن الشيفرة يمكن أن تكون رداء وأن الإجماع هو إشارة الوطواط التي تستدعي مدينة أفضل.",
+  "ui.language": "اللغة",
+  "ui.theme": "السمة",
+  "panel.pro": "لوحة المحترفين",
+  "panel.mining": "تعدين 5470 (أصلي)",
+  "panel.taylor": "Taylor Pass (مقياس الأمان)",
+  "panel.deployer": "مطلق العقود الذكية",
+  "btn.start": "ابدأ",
+  "btn.stop": "أوقف",
+  "btn.claim": "استرداد",
+  "btn.params": "المعلمات",
+  "btn.stats": "الإحصاءات",
+  "btn.register": "تسجيل",
+  "btn.submit": "إرسال العمل",
+  "btn.deploy": "نشر",
+  "input.nonce": "نونْس",
+  "input.prevhash": "الهاش السابق",
+  "input.sigs": "تواقيع (hex)",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...بايت كود",
+  "deploy.args": "[\"arg1\", 123] (JSON اختياري)"
+}

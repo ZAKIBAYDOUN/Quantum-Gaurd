@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "Desde los callejones de Gotham hasta el mempool de internet, un guardián enmascarado llamado Satoshi demostró que el código puede ser una capa y el consenso la Bat‑Señal que convoca una ciudad mejor.",
+  "ui.language": "Idioma",
+  "ui.theme": "Tema",
+  "panel.pro": "Panel Pro",
+  "panel.mining": "Minería 5470 (nativa)",
+  "panel.taylor": "Taylor Pass (métrica de seguridad)",
+  "panel.deployer": "Desplegador de Contratos",
+  "btn.start": "Iniciar",
+  "btn.stop": "Parar",
+  "btn.claim": "Reclamar",
+  "btn.params": "Parámetros",
+  "btn.stats": "Estadísticas",
+  "btn.register": "Registrar",
+  "btn.submit": "Enviar trabajo",
+  "btn.deploy": "Desplegar",
+  "input.nonce": "Nonce",
+  "input.prevhash": "Hash previo",
+  "input.sigs": "Firmas (hex)",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...bytecode",
+  "deploy.args": "[\"arg1\", 123] (JSON opcional)"
+}

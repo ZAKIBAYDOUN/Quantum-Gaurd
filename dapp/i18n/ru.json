@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "От переулков Готэма до мемпула интернета маскированный хранитель по имени Сатоши показал, что код может быть плащом, а консенсус  сигналом Бэтмена, который зовёт в лучший город.",
+  "ui.language": "Язык",
+  "ui.theme": "Тема",
+  "panel.pro": "Панель Pro",
+  "panel.mining": "Добыча 5470 (родная)",
+  "panel.taylor": "Taylor Pass (метрика безопасности)",
+  "panel.deployer": "Деплой смартконтрактов",
+  "btn.start": "Старт",
+  "btn.stop": "Стоп",
+  "btn.claim": "Получить",
+  "btn.params": "Параметры",
+  "btn.stats": "Статистика",
+  "btn.register": "Регистрация",
+  "btn.submit": "Отправить работу",
+  "btn.deploy": "Деплой",
+  "input.nonce": "Nonce",
+  "input.prevhash": "Предыдущий хеш",
+  "input.sigs": "Подписи (hex)",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...байткод",
+  "deploy.args": "[\"arg1\", 123] (опциональный JSON)"
+}

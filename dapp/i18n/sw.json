@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "Kutoka njia za Gotham hadi mempool ya intaneti, mlezi aliyejifunika aitwaye Satoshi alionyesha kuwa msimbo unaweza kuwa shuka, na makubaliano ndiyo BatSignal ya kuuita mji bora.",
+  "ui.language": "Lugha",
+  "ui.theme": "Mandhari",
+  "panel.pro": "Jopo la Pro",
+  "panel.mining": "Uchimbaji 5470 (asili)",
+  "panel.taylor": "Taylor Pass (kipimo cha usalama)",
+  "panel.deployer": "Kizindua Mkataba Mahiri",
+  "btn.start": "Anza",
+  "btn.stop": "Simamisha",
+  "btn.claim": "Dai",
+  "btn.params": "Vigezo",
+  "btn.stats": "Takwimu",
+  "btn.register": "Sajili",
+  "btn.submit": "Tuma Kazi",
+  "btn.deploy": "Zindua",
+  "input.nonce": "Nonce",
+  "input.prevhash": "Hash ya awali",
+  "input.sigs": "Saini (hex)",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...msimbo wa baiti",
+  "deploy.args": "[\"arg1\", 123] (JSON ya hiari)"
+}

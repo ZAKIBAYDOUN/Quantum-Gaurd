@@ -1,0 +1,23 @@
+﻿{
+  "app.tagline": "从哥谭小巷到互联网的内存池，一位名为中本聪的蒙面守护者证明：代码可以成为披风，而共识就是召唤更好城市的蝙蝠信号。",
+  "ui.language": "语言",
+  "ui.theme": "主题",
+  "panel.pro": "专业面板",
+  "panel.mining": "5470 挖矿（原生）",
+  "panel.taylor": "Taylor Pass（安全度量）",
+  "panel.deployer": "智能合约部署器",
+  "btn.start": "开始",
+  "btn.stop": "停止",
+  "btn.claim": "领取",
+  "btn.params": "参数",
+  "btn.stats": "统计",
+  "btn.register": "注册",
+  "btn.submit": "提交工作",
+  "btn.deploy": "部署",
+  "input.nonce": "随机数",
+  "input.prevhash": "上一哈希",
+  "input.sigs": "签名（hex）",
+  "deploy.abi": "[ ... ABI ... ]",
+  "deploy.bytecode": "0x...字节码",
+  "deploy.args": "[\"arg1\", 123]（可选 JSON）"
+}

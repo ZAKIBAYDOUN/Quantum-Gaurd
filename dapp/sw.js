@@ -38,3 +38,4 @@ self.addEventListener("fetch", (e) => {
 
 
 \n// i18n cache\n// ensure cache picks these up\n
+

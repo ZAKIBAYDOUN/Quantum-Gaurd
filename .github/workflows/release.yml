@@ -14,13 +14,36 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
-        with: { node-version: "20" }
-      - name: Install deps
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Linux deps (rpm/fakeroot)
+        if: matrix.os == 'ubuntu-latest'
         run: |
-          npm ci || npm install
+          sudo apt-get update
+          sudo apt-get install -y rpm fakeroot
+
+      - name: macOS env (disable signing)
+        if: matrix.os == 'macos-latest'
+        run: echo "CSC_IDENTITY_AUTO_DISCOVERY=false" >> $GITHUB_ENV
+
+      - name: Common env
+        run: |
+          echo "USE_HARD_LINKS=false" >> $GITHUB_ENV
+          echo "ELECTRON_BUILDER_SKIP_SNAP=true" >> $GITHUB_ENV
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Electron Builder version
+        run: npx electron-builder --version
+
       - name: Build installers
         run: npm run dist
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -33,14 +56,13 @@ jobs:
             dist/*.deb
             dist/*.rpm
             dist/*.zip
-          if-no-files-found: ignore
+          if-no-files-found: warn
 
   checksums-and-release:
     needs: build-desktop
     runs-on: ubuntu-latest
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           path: artifacts
       - name: Generate SHA256SUMS
@@ -50,8 +72,7 @@ jobs:
       - name: Create GitHub Release and upload assets
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            artifacts/**/*
+          files: artifacts/**/*
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

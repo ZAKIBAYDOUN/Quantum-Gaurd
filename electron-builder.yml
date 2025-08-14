@@ -17,3 +17,8 @@ linux:
   category: Utility
 mac:
   target: dmg
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  entitlements: null
+  entitlementsInherit: null
+  notarize: false

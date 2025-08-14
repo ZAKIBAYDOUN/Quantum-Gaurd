@@ -21,3 +21,7 @@ linux:
   maintainer: Quantum Guard Team <support@quantumguard.app>
   # Linux quedará: QuantumGuard.AppImage y QuantumGuard.deb
   artifactName: QuantumGuard.${ext}
+publish:
+  - provider: github
+    owner: ZAKIBAYDOUN
+    repo: Quantum-Gaurd

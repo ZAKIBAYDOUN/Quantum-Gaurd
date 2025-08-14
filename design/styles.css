@@ -1,0 +1,91 @@
+﻿/* Base: tipografía, fondos, helpers. Usa Tailwind si lo procesas; si no, funciona con estas clases utilitarias. */
+:root{
+  --bg: hsl(225, 9%, 8%);
+  --surface: hsl(225, 14%, 12%);
+  --glass: hsla(225, 14%, 12%, .72);
+  --ink: hsl(214, 32%, 92%);
+  --muted: hsl(213, 20%, 72%);
+  --primary: hsl(217, 91%, 60%);
+  --secondary: hsl(185, 94%, 35%);
+  --success: hsl(142, 71%, 45%);
+  --border: hsl(223, 18%, 24%);
+  --glow1: hsla(217, 91%, 60%, .45);
+  --glow2: hsla(185, 94%, 35%, .45);
+  --r-lg: 14px;
+  --r-xl: 18px;
+  --shadow: 0 10px 30px #0008, 0 0 60px -20px var(--glow1);
+  --t-base: 220ms ease;
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; font-family:var(--font); color:var(--ink)}
+.bg-quantum{
+  background: radial-gradient(1200px 800px at 20% -10%, #173354 0%, transparent 60%),
+              radial-gradient(900px 600px at 120% 10%, #0d3d39 0%, transparent 60%),
+              var(--bg);
+}
+.text-ink{color:var(--ink)}
+.q-container{max-width:1200px;margin:0 auto;padding:24px}
+
+/* Nav */
+.q-nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #ffffff10;background:linear-gradient(180deg, #0b0f17dd 0%, #0b0f1700 100%);backdrop-filter:blur(14px)}
+.q-brand{display:flex;gap:10px;align-items:center}
+.q-logo{width:28px;height:28px;filter:drop-shadow(0 0 6px var(--glow1))}
+.q-title{font-weight:700;letter-spacing:.4px}
+.q-actions{display:flex;gap:10px;align-items:center}
+
+/* Buttons */
+.q-btn{border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:#13233b;color:var(--ink);cursor:pointer;transition:transform var(--t-base), box-shadow var(--t-base)}
+.q-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.q-btn.primary{border:none;background:linear-gradient(135deg, var(--primary), var(--secondary));color:#081016;box-shadow:0 0 0 2px #ffffff14, 0 10px 40px var(--glow1)}
+.q-btn.ghost{background:transparent}
+
+/* Hero */
+.q-hero{margin:24px auto;padding:32px;border-radius:var(--r-xl);background:linear-gradient(135deg, var(--glass), hsla(225,14%,12%,.86));border:1px solid var(--border);box-shadow:var(--shadow)}
+.q-display{font-size:34px;margin:0 0 6px;font-weight:700}
+.q-muted{color:var(--muted)}
+.q-cta{margin-top:16px}
+
+/* Banner seguridad cuántica */
+.q-banner-sec{margin:16px 0}
+.q-banner-content{display:flex;gap:14px;align-items:center;background:var(--glass);border:1px solid var(--border);border-radius:var(--r-xl);padding:14px;box-shadow:var(--shadow)}
+.q-chip{background:#101a2b;border:1px solid var(--border);border-radius:999px;padding:6px 10px;color:var(--muted)}
+.q-chip.ok{color:#0e1a11;border-color:#2f5; background:linear-gradient(135deg, #2fee7a 0%, #49ffa0 100%)}
+
+/* Grid & Cards */
+.q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:1000px){ .q-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:680px){ .q-grid{grid-template-columns:1fr} }
+
+.q-card{padding:18px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.q-card.glow{box-shadow:0 0 0 1px var(--border), 0 10px 40px #0004, 0 0 60px -20px var(--glow1), inset 0 0 40px -30px var(--glow2)}
+
+/* Monitor de puentes */
+.q-monitor{display:flex;flex-direction:column;gap:10px}
+.q-bridge{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0f182a;border:1px solid var(--border);border-radius:12px;padding:8px 10px}
+.q-dot{width:10px;height:10px;border-radius:999px;background:var(--primary);box-shadow:0 0 12px var(--glow1)}
+.q-dot1{animation: float 6s ease-in-out infinite}
+.q-badge{border-radius:999px;padding:4px 8px;border:1px solid var(--border);color:var(--muted);background:#0f182a}
+.q-badge.ok{color:#0e1a11;border-color:#2f5;background:linear-gradient(135deg, #2fee7a 0%, #49ffa0 100%)}
+.q-badge.warn{color:#261a00;border-color:#ffcd4a;background:linear-gradient(135deg, #ffd166 0%, #ffb34d 100%)}
+.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Estados de conexión */
+.q-state{display:flex;flex-direction:column;gap:10px}
+.q-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.q-k{color:var(--muted)}
+.q-v{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+.anim-conn{position:relative}
+.anim-conn::after{content:"";position:absolute;left:-14px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:999px;background:#f66;box-shadow:0 0 8px #f66;animation:pulse 1.6s infinite}
+
+/* Módulos */
+.q-mods{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Footer */
+.q-foot{padding:24px;text-align:center;opacity:.8}
+
+/* Seguridad: sin scroll lateral */
+html, body { overflow-x: hidden; }

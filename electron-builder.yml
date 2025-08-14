@@ -1,0 +1,19 @@
+﻿appId: com.quantum.guard
+productName: QuantumGuard
+directories:
+  output: dist
+files:
+  - dapp/**
+  - electron/**
+  - package.json
+asar: true
+win:
+  target: nsis
+linux:
+  target:
+    - AppImage
+    - deb
+    - rpm
+  category: Utility
+mac:
+  target: dmg

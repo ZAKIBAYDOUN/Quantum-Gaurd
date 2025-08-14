@@ -140,8 +140,40 @@
 <div style="position: fixed; right: 18px; bottom: 68px; z-index: 50;">
   <select id="langSelect" class="btn btn-secondary" style="min-width: 220px;"></select>
 </div>
-<!-- /LANG BOOT -->\n</body>
+<!-- /LANG BOOT -->\n<!-- NEURAL CHAT START -->
+<section class="card">
+  <h2>Neural Chat (32 Q-Neurons)</h2>
+  <div class="muted" style="margin-bottom:8px;">Ask about gas, blocks, mining, QNN, MPC, RPC, contracts, health (no secrets logged).</div>
+  <div class="grid cols-2">
+    <div>
+      <input id="chat-input" placeholder="Ask a question about the blockchain" />
+      <button id="chat-ask" class="btn btn-primary" style="margin-top:8px;">Ask</button>
+    </div>
+    <pre id="chat-output" style="min-height:160px;">Ready.</pre>
+  </div>
+</section>
+<script src="./neurons.js"></script>
+<script src="./chat.js"></script>
+<!-- NEURAL CHAT END -->
+<!-- TECH START -->
+<section class="card">
+  <h2>Technical</h2>
+  <div class="muted">Status checks and technical info (no secrets).</div>
+  <div style="margin:8px 0;">
+    <button id="btn-tech-health" class="btn">Run health checks</button>
+    <button id="btn-tech-info" class="btn">Snapshot</button>
+  </div>
+  <div class="grid cols-2">
+    <pre id="tech-health" style="min-height:120px;"></pre>
+    <pre id="tech-info" style="min-height:120px;"></pre>
+  </div>
+  <div class="muted" style="margin-top:8px;">White paper: developed by Rami Bond (visionary). Decentralized blockchain + PWA. No private keys or secrets are ever collected by this app.</div>
+</section>
+<script src="./tech.js"></script>
+<!-- TECH END -->
+</body>
 </html>
+
 
 
 

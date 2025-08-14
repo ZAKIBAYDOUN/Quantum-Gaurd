@@ -1,0 +1,24 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b0f14"/>
+      <stop offset="100%" stop-color="#111826"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
+  <rect x="40" y="30" width="1200" height="60" rx="12" fill="#0f172a" stroke="#1f2937"/>
+  <text x="60" y="68" fill="#e6eaf2" font-family="Inter,Segoe UI" font-size="22" font-weight="700">5470 QuantumGuard DApp</text>
+  <rect x="40" y="110" width="1200" height="90" rx="12" fill="#111826" stroke="#1f2937"/>
+  <text x="60" y="160" fill="#9aa4b2" font-family="Inter,Segoe UI" font-size="16">From the alleys of Gotham to the mempool of the internet</text>
+  <rect x="40" y="220" width="580" height="210" rx="12" fill="#111826" stroke="#1f2937"/>
+  <text x="60" y="250" fill="#e6eaf2" font-size="18">Neural Chat (32 Q‑Neurons)</text>
+  <rect x="60" y="265" width="260" height="36" rx="8" fill="#0f172a" stroke="#1f2937"/>
+  <rect x="60" y="309" width="260" height="100" rx="8" fill="#0b1220" stroke="#1f2937"/>
+  <rect x="660" y="220" width="580" height="210" rx="12" fill="#111826" stroke="#1f2937"/>
+  <text x="680" y="250" fill="#e6eaf2" font-size="18">Pro Panel</text>
+  <rect x="680" y="265" width="540" height="150" rx="8" fill="#0f172a" stroke="#1f2937"/>
+  <rect x="40" y="450" width="1200" height="210" rx="12" fill="#111826" stroke="#1f2937"/>
+  <text x="60" y="480" fill="#e6eaf2" font-size="18">Technical</text>
+  <rect x="60" y="495" width="540" height="140" rx="8" fill="#0b1220" stroke="#1f2937"/>
+  <rect x="700" y="495" width="540" height="140" rx="8" fill="#0b1220" stroke="#1f2937"/>
+</svg>

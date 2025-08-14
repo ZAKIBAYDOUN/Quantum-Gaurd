@@ -1,4 +1,4 @@
-﻿name: release-stable
+name: release-stable
 on:
   push:
     branches: [ import/supercore, main ]
@@ -72,4 +72,4 @@ jobs:
           file_glob: true
           overwrite: true
           body: "Latest stable desktop installers (.exe, .AppImage, .deb) + SHA256SUMS"
-          make_latest: true
+          make_latest: false

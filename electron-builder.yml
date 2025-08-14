@@ -25,3 +25,10 @@ publish:
   - provider: github
     owner: ZAKIBAYDOUN
     repo: Quantum-Gaurd
+nsis:
+  oneClick: true
+  perMachine: false
+  allowToChangeInstallationDirectory: false
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
+  runAfterFinish: true

@@ -49,10 +49,9 @@ export function populateNetworkSelect(networks) {
   }
 }
 
-export async function ensureChain(chainId) {
-  const eth = getProvider(); if (!eth) return;
-  const current = await eth.request({ method: 'eth_chainId' });
+export async function ensureChain(chainId, networks) {\n  const eth = getProvider(); if (!eth) return;\n  const current = await eth.request({ method: "eth_chainId" });\n  if (current === chainId) return;\n  try {\n    await eth.request({ method: "wallet_switchEthereumChain", params: [{ chainId }] });\n    return;\n  } catch (e) {\n    const n = (networks||[]).find(n => n.chainId === chainId);\n    if (!n) return;\n    try {\n      await eth.request({ method: "wallet_addEthereumChain", params: [{\n        chainId: n.chainId, chainName: n.name, nativeCurrency: n.nativeCurrency, rpcUrls: n.rpc, blockExplorerUrls: n.blockExplorerUrls\n      }] });\n    } catch (_) {}\n  }\n});
   if (current !== chainId) {
     try { await eth.request({ method: 'wallet_switchEthereumChain', params: [{ chainId }] }); } catch {}
   }
 }
+

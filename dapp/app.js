@@ -88,3 +88,4 @@ connectBtn.addEventListener("click", connect);
 disconnectBtn.addEventListener("click", disconnect);
 
 init();
+

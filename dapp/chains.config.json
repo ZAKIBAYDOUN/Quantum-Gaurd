@@ -1,0 +1,13 @@
+﻿{
+  "defaultChain": "0x2105",
+  "enabledChains": [
+    "0x2105",  // Base
+    "0xa4b1",  // Arbitrum One
+    "0xa",     // Optimism
+    "0x89",    // Polygon PoS
+    "0x38",    // BSC
+    "0xa86a",  // Avalanche C-Chain
+    "0x64",    // Gnosis
+    "0x2329"   // Evmos (Cosmos EVM)
+  ]
+}

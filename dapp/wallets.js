@@ -35,18 +35,7 @@ export function initTabs() {
 }
 
 // Networks
-export async function loadNetworks() {
-  const res = await fetch('./networks.json', { cache: 'no-store' });
-  return await res.json();
-}
 
-export function populateNetworkSelect(networks) {
-  const sel = document.getElementById('networkSelect');
-  sel.innerHTML = '';
-  for (const n of networks) {
-    const opt = document.createElement('option');
-    opt.value = n.chainId; opt.textContent = n.name; sel.appendChild(opt);
-  }
 }
 
 export async function ensureChain(chainId, networks) {\n  const eth = getProvider(); if (!eth) return;\n  const current = await eth.request({ method: "eth_chainId" });\n  if (current === chainId) return;\n  try {\n    await eth.request({ method: "wallet_switchEthereumChain", params: [{ chainId }] });\n    return;\n  } catch (e) {\n    const n = (networks||[]).find(n => n.chainId === chainId);\n    if (!n) return;\n    try {\n      await eth.request({ method: "wallet_addEthereumChain", params: [{\n        chainId: n.chainId, chainName: n.name, nativeCurrency: n.nativeCurrency, rpcUrls: n.rpc, blockExplorerUrls: n.blockExplorerUrls\n      }] });\n    } catch (_) {}\n  }\n});
@@ -55,3 +44,33 @@ export async function ensureChain(chainId, networks) {\n  const eth = getProvide
   }
 }
 
+
+export async function loadConfig() {
+  try { const r = await fetch('./chains.config.json', { cache: 'no-store' }); if (r.ok) return await r.json(); } catch {}
+  return { defaultChain: null, enabledChains: [] };
+}
+
+export async function loadNetworks() {
+  const [netsRes, cfg] = await Promise.all([
+    fetch('./networks.json', { cache: 'no-store' }),
+    loadConfig()
+  ]);
+  const nets = await netsRes.json();
+  if (cfg.enabledChains && cfg.enabledChains.length) {
+    return nets.filter(n => cfg.enabledChains.includes(n.chainId));
+  }
+  return nets;
+}
+
+export function populateNetworkSelect(networks, cfg) {
+  const sel = document.getElementById('networkSelect');
+  sel.innerHTML = '';
+  for (const n of networks) {
+    const opt = document.createElement('option');
+    opt.value = n.chainId; opt.textContent = n.name; sel.appendChild(opt);
+  }
+  if (cfg?.defaultChain) {
+    const found = Array.from(sel.options).find(o => o.value === cfg.defaultChain);
+    if (found) sel.value = cfg.defaultChain;
+  }
+}

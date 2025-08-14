@@ -23,3 +23,8 @@ Se usa GitHub Actions para lint/tests/build. Ver `.github/workflows/ci.yml`.
 
 ## Env
 Copia `.env.example` a `.env` y completa valores. No subas `.env`.
+
+
+### Networks configuration
+- Edit `dapp/networks.json` to change chain metadata (RPC, explorers).
+- Toggle availability and set default chain via `dapp/chains.config.json`.

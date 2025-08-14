@@ -1,5 +1,5 @@
 ﻿import { toHex, formatEth } from "./utils.js";
-import { getProvider, initTabs, loadNetworks, populateNetworkSelect, ensureChain } from "./wallets.js";
+import { getProvider, initTabs, loadNetworks, populateNetworkSelect, ensureChain, loadConfig } from "./wallets.js";
 import { batchNeuronCounts } from "./multicall.js";
 import { verifyProofPlaceholder } from "./zk.js";
 import { startMpcFlow } from "./mpc.js";
@@ -47,8 +47,7 @@ async function refresh() {
 
 async function init() {
   initTabs();
-  networks = await loadNetworks();
-  populateNetworkSelect(networks);
+  const cfg = await loadConfig();\n  networks = await loadNetworks();\n  populateNetworkSelect(networks, cfg);\n  if (cfg?.defaultChain) { try { await ensureChain(cfg.defaultChain, networks); } catch {} }
   networkSelect.addEventListener('change', async ()=> { await ensureChain(networkSelect.value); await refresh(); });
 
   // Buttons wiring
@@ -88,4 +87,5 @@ connectBtn.addEventListener("click", connect);
 disconnectBtn.addEventListener("click", disconnect);
 
 init();
+
 

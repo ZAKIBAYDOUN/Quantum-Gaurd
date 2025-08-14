@@ -1,4 +1,4 @@
-﻿const CACHE = "supercore-cache-v1";
+﻿const CACHE = "supercore-cache-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -37,3 +37,4 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+

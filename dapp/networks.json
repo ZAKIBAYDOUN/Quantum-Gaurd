@@ -1,0 +1,118 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <title>SuperCore DApp</title>
+  <meta name="description" content="SuperCore DApp PWA - Web3 wallet connect, offline-ready" />
+  <link rel="stylesheet" href="./ui.css" />
+</head>
+<body>
+  <header>
+  <div class="row">
+    <img src="./icon.svg" alt="logo" width="28" height="28" />
+    <strong>SuperCore DApp</strong>
+  </div>
+  <div class="row">
+    <label class="muted">Red:</label>
+    <select id="networkSelect"></select>
+    <button id="connectBtn">Conectar Wallet</button>
+    <button id="disconnectBtn" class="secondary" style="display:none;">Desconectar</button>
+  </div>
+</header>'@
+$tabs = @'
+<nav class="tabs card">
+  <button data-tab="overview" class="active">Overview</button>
+  <button data-tab="neurons">Neurons</button>
+  <button data-tab="zk">ZK Receipts</button>
+  <button data-tab="mev">AntiMEV</button>
+  <button data-tab="mpc">MPC 2of2</button>
+  <button data-tab="dex">DEX</button>
+</nav>'@
+if ($index -notmatch 'nav class="tabs"') { $index = $index -replace '<main>','<main>' + "`r`n" + $tabs }
+# Ensure neurons block remains; other sections minimal placeholders
+if ($index -notmatch 'id="neurons"') {
+  $index = $index -replace '(</main>)','  <section id="tab-neurons" class="card" hidden>\n    <div class="muted">Neurons</div>\n    <div class="row" style="justify-content:space-between;">\n      <div class="muted">Lectura onchain</div>\n      <div id="neurons" class="mono">-</div>\n    </div>\n  </section>\n$1'
+}
+if ($index -notmatch 'id="tab-overview"') {
+  $index = $index -replace '<main>','<main>\n  <section id="tab-overview" class="card">\n    <div class="row" style="justify-content:space-between;">\n      <div><div class="muted">Estado</div><div id="status">No conectado</div></div>\n      <div><div class="muted">Red</div><div id="chain">-</div></div>\n      <div><div class="muted">Cuenta</div><div id="account" class="mono">-</div></div>\n      <div><div class="muted">Balance</div><div id="balance">-</div></div>\n    </div>\n  </section>'
+}
+if ($index -notmatch 'id="tab-zk"') { $index = $index -replace '(</main>)','  <section id="tab-zk" class="card" hidden>\n    <div class="muted">ZK Receipts</div>\n    <div>Placeholders para generar/verificar pruebas sin exponer datos.</div>\n  </section>\n$1' }
+if ($index -notmatch 'id="tab-mev"') { $index = $index -replace '(</main>)','  <section id="tab-mev" class="card" hidden>\n    <div class="row" style="justify-content:space-between;">\n      <div>\n        <div class="muted">Anti‑MEV</div>\n        <div class="muted">Usa mempool privado (ej. MEV‑Blocker/Flashbots). Requiere configurar RPC en la wallet.</div>\n      </div>\n      <div class="row">\n        <label><input type="checkbox" id="mevToggle" /> Envío protegido</label>\n        <a href="https://mevblocker.io/" target="_blank" class="muted">Configurar MEV‑Blocker</a>\n      </div>\n    </div>\n  </section>\n$1' }
+if ($index -notmatch 'id="tab-mpc"') { $index = $index -replace '(</main>)','  <section id="tab-mpc" class="card" hidden>\n    <div class="muted">MPC 2of‑2</div>\n    <div>Placeholder para flujo de co‑firma con cosigner (QR/Link). Nunca se revela la clave.</div>\n  </section>\n$1' }
+if ($index -notmatch 'id="tab-dex"') { $index = $index -replace '(</main>)','  <section id="tab-dex" class="card" hidden>\n    <div class="muted">DEX</div>\n    <div>Placeholder de ruteo con límites de slippage y validación QNN.</div>\n  </section>\n$1' }
+# Ensure scripts include wallets.js and contracts.js
+if ($index -notmatch 'wallets.js') { $index = $index -replace '(</body>)','  <script type="module" src="./wallets.js"></script>\n$1' }
+if ($index -notmatch 'contracts.js') { $index = $index -replace '(</body>)','  <script type="module" src="./contracts.js"></script>\n$1' }
+Set-Content -Path "dapp\index.html" -Value $index -Encoding UTF8
+
+# 3) Add networks.json
+@'
+[
+  {
+    "name": "Ethereum Mainnet",
+    "chainId": "0x1",
+    "rpc": [],
+    "mevProtected": ["https://rpc.mevblocker.io"]
+  },
+  {
+    "name": "Sepolia",
+    "chainId": "0xaa36a7",
+    "rpc": ["https://sepolia.drpc.org"],
+    "mevProtected": []
+  }
+]
+
+  <main>
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div>
+          <div class="muted">Estado</div>
+          <div id="status">No conectado</div>
+        </div>
+        <div>
+          <div class="muted">Red</div>
+          <div id="chain">-</div>
+        </div>
+        <div>
+          <div class="muted">Cuenta</div>
+          <div id="account" class="mono">-</div>
+        </div>
+        <div>
+          <div class="muted">Balance</div>
+          <div id="balance">-</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div>
+          <div class="muted">Firma</div>
+          <div class="muted" style="max-width:560px">Prueba a firmar un mensaje para verificar control de la cuenta (no es una transacción).</div>
+        </div>
+        <div class="row">
+          <button id="signBtn" class="secondary">Firmar mensaje</button>
+        </div>
+      </div>
+      <div id="sig" class="mono" style="margin-top:12px; word-break:break-all;"></div>
+    </div>
+
+    <div class="muted">Consejo: instala MetaMask si no tienes proveedor EIP‑1193 disponible en el navegador.</div>
+    <div class="card">\n    <div class="row" style="justify-content:space-between;">\n      <div>\n        <div class="muted">Neurons</div>\n        <div class="muted">Lectura on-chain (placeholder)</div>\n      </div>\n      <div class="row">\n        <div id="neurons" class="mono">-</div>\n      </div>\n    </div>\n  </div>\n</main>
+
+  <script type="module" src="./app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+  </script>
+  <script type="module" src="./contracts.js"></script>\n</body>
+</html>
+
+

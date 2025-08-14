@@ -1,0 +1,17 @@
+﻿:root { --bg:#0b0f19; --card:#10182a; --line:#172036; --text:#e6f0ff; --muted:#9db3d9; --brand:#2b5cff; }
+* { box-sizing:border-box }
+html, body { height:100% }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--text) }
+header { padding:14px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px; justify-content:space-between }
+main { max-width:980px; margin:0 auto; padding:20px }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin:12px 0 }
+button { background:var(--brand); color:white; border:none; border-radius:10px; padding:10px 14px; cursor:pointer; font-weight:600 }
+button.secondary { background:var(--line); color:#cfe0ff }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace }
+.row { display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+.muted { color:var(--muted) }
+nav.tabs { display:flex; gap:8px; flex-wrap:wrap }
+nav.tabs button { background:transparent; border:1px solid var(--line); color:var(--text) }
+nav.tabs button.active { background:var(--brand); border-color:var(--brand) }
+section[hidden] { display:none }
+select, input[type="checkbox"] { background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px }

@@ -1,0 +1,58 @@
+﻿export const state = { providers: [], selected: null };
+
+// EIP-6963 provider discovery
+window.addEventListener('eip6963:announceProvider', (event) => {
+  const { info, provider } = event.detail;
+  if (!state.providers.find(p => p.info.uuid === info.uuid)) {
+    state.providers.push({ info, provider });
+  }
+});
+window.dispatchEvent(new Event('eip6963:requestProvider')); // request announcements
+
+export function getProvider() {
+  if (state.selected) return state.selected.provider;
+  return window.ethereum || state.providers[0]?.provider || null;
+}
+
+// Tabs simple
+export function initTabs() {
+  const buttons = document.querySelectorAll('nav.tabs button');
+  const sections = {
+    overview: document.getElementById('tab-overview'),
+    neurons: document.getElementById('tab-neurons'),
+    zk: document.getElementById('tab-zk'),
+    mev: document.getElementById('tab-mev'),
+    mpc: document.getElementById('tab-mpc'),
+    dex: document.getElementById('tab-dex'),
+  };
+  buttons.forEach(btn => btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    Object.values(sections).forEach(s => s.hidden = true);
+    const key = btn.getAttribute('data-tab');
+    sections[key].hidden = false;
+  }));
+}
+
+// Networks
+export async function loadNetworks() {
+  const res = await fetch('./networks.json', { cache: 'no-store' });
+  return await res.json();
+}
+
+export function populateNetworkSelect(networks) {
+  const sel = document.getElementById('networkSelect');
+  sel.innerHTML = '';
+  for (const n of networks) {
+    const opt = document.createElement('option');
+    opt.value = n.chainId; opt.textContent = n.name; sel.appendChild(opt);
+  }
+}
+
+export async function ensureChain(chainId) {
+  const eth = getProvider(); if (!eth) return;
+  const current = await eth.request({ method: 'eth_chainId' });
+  if (current !== chainId) {
+    try { await eth.request({ method: 'wallet_switchEthereumChain', params: [{ chainId }] }); } catch {}
+  }
+}

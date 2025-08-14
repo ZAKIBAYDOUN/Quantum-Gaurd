@@ -1,0 +1,21 @@
+﻿# General
+.env
+*.log
+.DS_Store
+
+# Node
+node_modules/
+dist/
+.out/
+.next/
+coverage/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+.mypy_cache/
+.pytest_cache/

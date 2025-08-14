@@ -1,4 +1,4 @@
-﻿name: release
+name: release
 on:
   push:
     tags: ["v*"]
@@ -30,7 +30,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: desktop-windows
-          path: dist/*.exe
+          path: |
+            dist/*.exe
+            dist/latest.yml
           if-no-files-found: warn
 
   build-linux:
@@ -51,6 +53,7 @@ jobs:
           path: |
             dist/*.AppImage
             dist/*.deb
+            dist/latest-linux.yml
           if-no-files-found: warn
 
   release:

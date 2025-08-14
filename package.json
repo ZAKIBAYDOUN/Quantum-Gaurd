@@ -1,13 +1,14 @@
-﻿{
-  "name": "quantum-guard",
-  "version": "1.0.0",
-  "description": "Quantum Guard (offline desktop bundle)",
-  "main": "electron/main.js",
-  "scripts": {
-    "dist": "electron-builder -c electron-builder.yml"
-  },
-  "devDependencies": {
-    "electron": "^30.0.0",
-    "electron-builder": "^24.9.1"
-  }
+{
+    "name":  "quantum-guard",
+    "version":  "1.0.0",
+    "description":  "Quantum Guard (offline desktop bundle)",
+    "main":  "electron/main.js",
+    "scripts":  {
+                    "dist":  "electron-builder -c electron-builder.yml"
+                },
+    "devDependencies":  {
+                            "electron":  "^30.0.0",
+                            "electron-builder":  "^24.9.1"
+                        },
+    "author":  "Quantum Guard Team"
 }

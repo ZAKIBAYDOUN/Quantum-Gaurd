@@ -9,3 +9,8 @@ files:
 asar: true
 win:
   target: nsis
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Utility

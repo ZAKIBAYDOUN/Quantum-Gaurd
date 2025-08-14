@@ -3,6 +3,7 @@ const path = require("path");
 function createWindow() {
   const win = new BrowserWindow({ width: 1200, height: 800, webPreferences: { contextIsolation: true } });
   win.removeMenu?.();
+  // La app funciona offline cargando tu dapp/index.html
   win.loadFile(path.join(__dirname, "../dapp/index.html"));
 }
 app.whenReady().then(() => { createWindow(); app.on("activate", () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); }); });

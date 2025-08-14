@@ -1,12 +1,15 @@
-name: ci
+﻿name: ci
 on:
   push:
-    branches: [main, import/supercore]
+    branches:
+      - main
+      - import/supercore
   pull_request:
-    branches: [main]
+    branches:
+      - main
 jobs:
   ok:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo \"CI OK\"
+      - run: echo "CI OK"

@@ -39,8 +39,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fix package.json (BOM + author)
+        shell: bash
         run: |
-          node -e "const fs=require('fs');const p='package.json';let b=fs.readFileSync(p);if(b[0]===0xEF&&b[1]===0xBB&&b[2]===0xBF){b=b.slice(3)};let o=JSON.parse(b.toString('utf8'));if(!o.author){o.author='Quantum Guard Team'};fs.writeFileSync(p, JSON.stringify(o,null,2))"
+          node -e "const fs=require('fs'),p='package.json';let b=fs.readFileSync(p);if(b[0]===0xEF&&b[1]===0xBB&&b[2]===0xBF)b=b.slice(3);let o=JSON.parse(b.toString('utf8'));if(!o.author)o.author='Quantum Guard Team';fs.writeFileSync(p,JSON.stringify(o,null,2))"
       - run: npm install --no-audit --no-fund
       - run: npx electron-builder --version
       - run: npx electron-builder -l AppImage deb --publish never

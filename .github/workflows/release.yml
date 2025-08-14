@@ -18,7 +18,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
 
       - name: Linux deps (rpm/fakeroot)
         if: matrix.os == 'ubuntu-latest'
@@ -36,7 +35,7 @@ jobs:
           echo "ELECTRON_BUILDER_SKIP_SNAP=true" >> $GITHUB_ENV
 
       - name: Install deps
-        run: npm ci || npm install
+        run: npm install --no-audit --no-fund
 
       - name: Electron Builder version
         run: npx electron-builder --version

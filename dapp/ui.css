@@ -73,3 +73,18 @@ pre { background: #0b1220; color: #e2e8f0; padding:12px; border-radius:10px; bor
 
 .fab-theme { position: fixed; right: 18px; bottom: 18px; z-index: 50 }
 .fab-theme button { border-radius: 999px; padding: 10px 12px; border:1px solid var(--border); background: var(--panel); color: var(--fg); box-shadow: var(--shadow) }
+
+/* --- responsive hotfixes --- */
+html, body { width:100%; max-width:100%; overflow-x:hidden; }
+.container{ padding-top: 16px; }
+.panel{ margin-top:16px; }
+.panel.card{ padding:18px; border-radius:14px; background:#0e1523cc; border:1px solid #2a3a54; box-shadow:0 10px 30px #0006; }
+.row{ display:flex; gap:10px; flex-wrap:wrap; }
+.hidden{ display:none !important; }
+dialog.modal{ max-width:100%; width:min(560px, 92vw); }
+.modal-inner{ width:100%; }
+@media(max-width:480px){
+  .qg-nav{ flex-wrap:wrap; gap:8px }
+  .nav-actions{ width:100%; justify-content:flex-end; flex-wrap:wrap }
+  .grid{ grid-template-columns:1fr; }
+}

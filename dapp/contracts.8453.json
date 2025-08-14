@@ -1,9 +1,4 @@
 ﻿{
   "chainId": 8453,
-  "contracts": {
-    "Neurons": {
-      "address": "0xPegaLaDireccionAqui",
-      "abi": "abis/Neurons.json"
-    }
-  }
+  "contracts": {}
 }
